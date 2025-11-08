@@ -12,6 +12,8 @@ export default function RoomPage() {
   const [handle, setHandle] = useState("anon");
   const [messages, setMessages] = useState([]);
   const [roomMeta, setRoomMeta] = useState(null);
+  const [summary, setSummary] = useState("");
+  const [summarizing, setSummarizing] = useState(false);
   const bottomRef = useRef(null);
 
   useEffect(() => {
@@ -43,17 +45,58 @@ export default function RoomPage() {
     });
   }
 
+  async function summarizeRoom() {
+    try {
+      setSummarizing(true);
+      setSummary("");
+      const res = await fetch("/api/assist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ roomId: id, mode: "summary" })
+      });
+      if (!res.ok) {
+        let errMsg = "Failed to summarize";
+        try {
+          const errBody = await res.json();
+          errMsg = errBody.details || errBody.error || errMsg;
+        } catch (_) {}
+        throw new Error(errMsg);
+      }
+      const data = await res.json();
+      setSummary(data.text);
+    } catch (err) {
+      setSummary(err.message);
+    } finally {
+      setSummarizing(false);
+    }
+  }
+
   return (
     <main className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">{roomMeta?.title || `Room ${id}`}</h1>
-        <span className="text-xs text-gray-400">Ephemeral • No signup</span>
+        <div className="flex items-center gap-2 text-xs text-gray-400">
+          <button
+            onClick={summarizeRoom}
+            disabled={summarizing}
+            className="px-3 py-1 rounded bg-slate-800 text-white text-xs disabled:opacity-60"
+          >
+            {summarizing ? "Summarizing..." : "Summarize now"}
+          </button>
+          <span>Ephemeral • No signup</span>
+        </div>
       </div>
       <div className="card p-3 h-[60vh] overflow-y-auto">
         {messages.map(m => <Message key={m.id} m={m} self={user} />)}
         <div ref={bottomRef} />
       </div>
       <ChatInput onSend={send} />
+      {summary && (
+        <div className="card p-3 bg-slate-900/70">
+          <p className="text-sm font-semibold">Summary</p>
+          <p className="text-sm text-gray-200 whitespace-pre-line mt-1">{summary}</p>
+        </div>
+      )}
       <div className="text-xs text-gray-400">By chatting, you agree to be nice. Spam & slurs auto-muted.</div>
     </main>
   );
