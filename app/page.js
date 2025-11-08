@@ -43,27 +43,7 @@ export default function Home() {
         </div>
       </div>
 
-
-
-
-      <div>
-        <p>For the demo, try:</p>
-        <ul>
-          <li><Link href="/join?room=demo-aisle7">Join Demo Room (Aisle 7)</Link></li>
-          <li><Link href="/dashboard">Store Dashboard</Link></li>
-        </ul>
-      </div>
-
-
-
-
-
     </main>
-
-
-
-
-
 
   );
 }
