@@ -10,6 +10,7 @@ exports.id = "vendor-chunks/next";
 exports.ids = ["vendor-chunks/next"];
 exports.modules = {
 
+<<<<<<< HEAD
 /***/ "./node_modules/next/dist/build/templates/helpers.js":
 /*!***********************************************************!*\
   !*** ./node_modules/next/dist/build/templates/helpers.js ***!
@@ -384,6 +385,8 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _cli
 
 /***/ }),
 
+=======
+>>>>>>> 321054896e2da2f66ba50b5782eed19978df3333
 /***/ "(ssr)/./node_modules/next/dist/client/add-base-path.js":
 /*!********************************************************!*\
   !*** ./node_modules/next/dist/client/add-base-path.js ***!
@@ -1964,6 +1967,7 @@ eval("\nmodule.exports = __webpack_require__(/*! ../../module.compiled */ \"(ssr
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "(ssr)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js":
 /*!***********************************************************************************************************!*\
   !*** ./node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js ***!
@@ -1975,6 +1979,8 @@ eval("\nmodule.exports = __webpack_require__(/*! ../../module.compiled */ \"(ssr
 
 /***/ }),
 
+=======
+>>>>>>> 321054896e2da2f66ba50b5782eed19978df3333
 /***/ "(ssr)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react-jsx-runtime.js":
 /*!*******************************************************************************************************!*\
   !*** ./node_modules/next/dist/server/future/route-modules/app-page/vendored/ssr/react-jsx-runtime.js ***!
@@ -2338,6 +2344,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "(rsc)/./node_modules/next/dist/api/server.js":
 /*!**********************************************!*\
   !*** ./node_modules/next/dist/api/server.js ***!
@@ -2349,6 +2356,8 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ser
 
 /***/ }),
 
+=======
+>>>>>>> 321054896e2da2f66ba50b5782eed19978df3333
 /***/ "(rsc)/./node_modules/next/dist/build/output/log.js":
 /*!****************************************************!*\
   !*** ./node_modules/next/dist/build/output/log.js ***!
@@ -2520,6 +2529,7 @@ module.exports = createProxy("C:\\hackathon\\UBHackathon25\\node_modules\\next\\
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "(rsc)/./node_modules/next/dist/compiled/@edge-runtime/cookies/index.js":
 /*!************************************************************************!*\
   !*** ./node_modules/next/dist/compiled/@edge-runtime/cookies/index.js ***!
@@ -2531,6 +2541,8 @@ eval("\nvar __defProp = Object.defineProperty;\nvar __getOwnPropDesc = Object.ge
 
 /***/ }),
 
+=======
+>>>>>>> 321054896e2da2f66ba50b5782eed19978df3333
 /***/ "(rsc)/./node_modules/next/dist/compiled/@opentelemetry/api/index.js":
 /*!*********************************************************************!*\
   !*** ./node_modules/next/dist/compiled/@opentelemetry/api/index.js ***!
@@ -2541,6 +2553,7 @@ eval("(()=>{\"use strict\";var e={491:(e,t,r)=>{Object.defineProperty(t,\"__esMo
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "(rsc)/./node_modules/next/dist/compiled/ua-parser-js/ua-parser.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/next/dist/compiled/ua-parser-js/ua-parser.js ***!
@@ -2551,6 +2564,8 @@ eval("var __WEBPACK_AMD_DEFINE_RESULT__;(()=>{var i={226:function(i,e){(function
 
 /***/ }),
 
+=======
+>>>>>>> 321054896e2da2f66ba50b5782eed19978df3333
 /***/ "(rsc)/./node_modules/next/dist/lib/constants.js":
 /*!*************************************************!*\
   !*** ./node_modules/next/dist/lib/constants.js ***!
@@ -2716,6 +2731,7 @@ eval("\nmodule.exports = __webpack_require__(/*! ../../module.compiled */ \"(ssr
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "(rsc)/./node_modules/next/dist/server/future/route-modules/app-route/module.compiled.js":
 /*!*****************************************************************************************!*\
   !*** ./node_modules/next/dist/server/future/route-modules/app-route/module.compiled.js ***!
@@ -2727,6 +2743,8 @@ eval("\nif (false) {} else {\n    if (false) {} else {\n        if (true) {\n   
 
 /***/ }),
 
+=======
+>>>>>>> 321054896e2da2f66ba50b5782eed19978df3333
 /***/ "(rsc)/./node_modules/next/dist/server/lib/patch-fetch.js":
 /*!**********************************************************!*\
   !*** ./node_modules/next/dist/server/lib/patch-fetch.js ***!
@@ -2760,6 +2778,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "(rsc)/./node_modules/next/dist/server/web/error.js":
 /*!****************************************************!*\
   !*** ./node_modules/next/dist/server/web/error.js ***!
@@ -2793,6 +2812,8 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));
 
 /***/ }),
 
+=======
+>>>>>>> 321054896e2da2f66ba50b5782eed19978df3333
 /***/ "(rsc)/./node_modules/next/dist/server/web/spec-extension/adapters/reflect.js":
 /*!******************************************************************************!*\
   !*** ./node_modules/next/dist/server/web/spec-extension/adapters/reflect.js ***!
@@ -2802,6 +2823,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));
 "use strict";
 eval("\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));\nObject.defineProperty(exports, \"ReflectAdapter\", ({\n    enumerable: true,\n    get: function() {\n        return ReflectAdapter;\n    }\n}));\nclass ReflectAdapter {\n    static get(target, prop, receiver) {\n        const value = Reflect.get(target, prop, receiver);\n        if (typeof value === \"function\") {\n            return value.bind(target);\n        }\n        return value;\n    }\n    static set(target, prop, value, receiver) {\n        return Reflect.set(target, prop, value, receiver);\n    }\n    static has(target, prop) {\n        return Reflect.has(target, prop);\n    }\n    static deleteProperty(target, prop) {\n        return Reflect.deleteProperty(target, prop);\n    }\n}\n\n//# sourceMappingURL=reflect.js.map//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9ub2RlX21vZHVsZXMvbmV4dC9kaXN0L3NlcnZlci93ZWIvc3BlYy1leHRlbnNpb24vYWRhcHRlcnMvcmVmbGVjdC5qcyIsIm1hcHBpbmdzIjoiQUFBYTtBQUNiLDhDQUE2QztBQUM3QztBQUNBLENBQUMsRUFBQztBQUNGLGtEQUFpRDtBQUNqRDtBQUNBO0FBQ0E7QUFDQTtBQUNBLENBQUMsRUFBQztBQUNGO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQSIsInNvdXJjZXMiOlsid2VicGFjazovL3Nob3BjaGF0Ly4vbm9kZV9tb2R1bGVzL25leHQvZGlzdC9zZXJ2ZXIvd2ViL3NwZWMtZXh0ZW5zaW9uL2FkYXB0ZXJzL3JlZmxlY3QuanM/N2FmMyJdLCJzb3VyY2VzQ29udGVudCI6WyJcInVzZSBzdHJpY3RcIjtcbk9iamVjdC5kZWZpbmVQcm9wZXJ0eShleHBvcnRzLCBcIl9fZXNNb2R1bGVcIiwge1xuICAgIHZhbHVlOiB0cnVlXG59KTtcbk9iamVjdC5kZWZpbmVQcm9wZXJ0eShleHBvcnRzLCBcIlJlZmxlY3RBZGFwdGVyXCIsIHtcbiAgICBlbnVtZXJhYmxlOiB0cnVlLFxuICAgIGdldDogZnVuY3Rpb24oKSB7XG4gICAgICAgIHJldHVybiBSZWZsZWN0QWRhcHRlcjtcbiAgICB9XG59KTtcbmNsYXNzIFJlZmxlY3RBZGFwdGVyIHtcbiAgICBzdGF0aWMgZ2V0KHRhcmdldCwgcHJvcCwgcmVjZWl2ZXIpIHtcbiAgICAgICAgY29uc3QgdmFsdWUgPSBSZWZsZWN0LmdldCh0YXJnZXQsIHByb3AsIHJlY2VpdmVyKTtcbiAgICAgICAgaWYgKHR5cGVvZiB2YWx1ZSA9PT0gXCJmdW5jdGlvblwiKSB7XG4gICAgICAgICAgICByZXR1cm4gdmFsdWUuYmluZCh0YXJnZXQpO1xuICAgICAgICB9XG4gICAgICAgIHJldHVybiB2YWx1ZTtcbiAgICB9XG4gICAgc3RhdGljIHNldCh0YXJnZXQsIHByb3AsIHZhbHVlLCByZWNlaXZlcikge1xuICAgICAgICByZXR1cm4gUmVmbGVjdC5zZXQodGFyZ2V0LCBwcm9wLCB2YWx1ZSwgcmVjZWl2ZXIpO1xuICAgIH1cbiAgICBzdGF0aWMgaGFzKHRhcmdldCwgcHJvcCkge1xuICAgICAgICByZXR1cm4gUmVmbGVjdC5oYXModGFyZ2V0LCBwcm9wKTtcbiAgICB9XG4gICAgc3RhdGljIGRlbGV0ZVByb3BlcnR5KHRhcmdldCwgcHJvcCkge1xuICAgICAgICByZXR1cm4gUmVmbGVjdC5kZWxldGVQcm9wZXJ0eSh0YXJnZXQsIHByb3ApO1xuICAgIH1cbn1cblxuLy8jIHNvdXJjZU1hcHBpbmdVUkw9cmVmbGVjdC5qcy5tYXAiXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(rsc)/./node_modules/next/dist/server/web/spec-extension/adapters/reflect.js\n");
 
+<<<<<<< HEAD
 /***/ }),
 
 /***/ "(rsc)/./node_modules/next/dist/server/web/spec-extension/cookies.js":
@@ -3011,6 +3033,8 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));
 "use strict";
 eval("/**\n * Removes the trailing slash for a given route or page path. Preserves the\n * root page. Examples:\n *   - `/foo/bar/` -> `/foo/bar`\n *   - `/foo/bar` -> `/foo/bar`\n *   - `/` -> `/`\n */ \nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));\nObject.defineProperty(exports, \"removeTrailingSlash\", ({\n    enumerable: true,\n    get: function() {\n        return removeTrailingSlash;\n    }\n}));\nfunction removeTrailingSlash(route) {\n    return route.replace(/\\/$/, \"\") || \"/\";\n} //# sourceMappingURL=remove-trailing-slash.js.map\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9ub2RlX21vZHVsZXMvbmV4dC9kaXN0L3NoYXJlZC9saWIvcm91dGVyL3V0aWxzL3JlbW92ZS10cmFpbGluZy1zbGFzaC5qcyIsIm1hcHBpbmdzIjoiQUFBQTs7Ozs7O0NBTUM7Ozs7dURBQ2VBOzs7ZUFBQUE7OztBQUFULFNBQVNBLG9CQUFvQkMsS0FBYTtJQUMvQyxPQUFPQSxNQUFNQyxPQUFPLENBQUMsT0FBTyxPQUFPO0FBQ3JDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vc2hvcGNoYXQvLi4vLi4vc3JjL3NoYXJlZC9saWIvcm91dGVyL3V0aWxzL3JlbW92ZS10cmFpbGluZy1zbGFzaC50cz83ZTU0Il0sIm5hbWVzIjpbInJlbW92ZVRyYWlsaW5nU2xhc2giLCJyb3V0ZSIsInJlcGxhY2UiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(rsc)/./node_modules/next/dist/shared/lib/router/utils/remove-trailing-slash.js\n");
 
+=======
+>>>>>>> 321054896e2da2f66ba50b5782eed19978df3333
 /***/ })
 
 };
