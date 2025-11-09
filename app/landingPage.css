@@ -7,8 +7,6 @@
 }
 
 
-
-
 html, body {
   background: #CAE8E0;
   color: #000000;
@@ -44,7 +42,7 @@ html, body {
     font-family: monopolyFont;
     font-size: 4.5em;
     text-align: center;
-    line-height: 2em;
+    line-height: 2.5em;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     font-weight: bold;
@@ -137,6 +135,44 @@ html, body {
   background-color: #C7E7FC;
 }
 
+.makeRoom-Button,
+.joinRoom-Button {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.makeRoom-Button:hover {
+  background-color: #9edcf0;
+  transform: scale(1.05);
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+}
+
+.joinRoom-Button:hover {
+  background-color: #C17A4D;
+  transform: scale(1.05);
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+}
+
+.makeRoom-Button:active,
+.joinRoom-Button:active {
+  transform: scale(0.98);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.3s ease;
+}
 
 
 

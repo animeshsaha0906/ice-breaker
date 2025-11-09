@@ -46,8 +46,7 @@ export default function RoomPage() {
   return (
     <main className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">{roomMeta?.title || `Room ${id}`}</h1>
-        <span className="text-xs text-gray-400">Ephemeral • No signup</span>
+        <h1 className="text-2xl font-bold">{`Room: ${id}`}</h1>
       </div>
       <div className="card p-3 h-[60vh] overflow-y-auto">
         {messages.map(m => <Message key={m.id} m={m} self={user} />)}

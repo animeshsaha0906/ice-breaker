@@ -4,20 +4,33 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import './landingPage.css';
 
+import React from "react";
+
 export default function Home() {
   const router = useRouter();
   const [makeRoomName, setMakeRoomName] = useState("");
+  const [makeError, setMakeError] = useState(false);
   const [joinRoomName, setJoinRoomName] = useState("");
+  const [joinError, setJoinError] = useState(false);
+
 
   function handleMakeRoom(e) {
     e.preventDefault();
-    if (!makeRoomName.trim()) return;
+    if (!makeRoomName.trim()) {
+      setMakeError(true);
+      setTimeout(() => setMakeError(false), 500); 
+      return;
+    }
     router.push(`/join?room=${encodeURIComponent(makeRoomName)}&create=true`);
   }
 
   function handleJoinRoom(e) {
-    e.preventDefault();
-    if (!joinRoomName.trim()) return;
+  e.preventDefault();
+  if (!joinRoomName.trim()) {
+    setJoinError(true);
+    setTimeout(() => setJoinError(false), 500); // remove shake after animation
+    return;
+  }
     router.push(`/join?room=${encodeURIComponent(joinRoomName)}&create=false`);
   }
 
@@ -37,11 +50,10 @@ export default function Home() {
             <input
               type="text"
               id="makeRoomInput"
-              name="makeRoomInput"
               value={makeRoomName}
               onChange={(e) => setMakeRoomName(e.target.value)}
               placeholder="Room Name"
-              className="makeRoom-Textbox"
+              className={`makeRoom-Textbox ${makeError ? 'border-red-500 shake' : ''}`}
             />
             <input type="submit" className="makeRoom-Button" value="Enter" />
           </form>
@@ -54,11 +66,10 @@ export default function Home() {
             <input
               type="text"
               id="joinRoomInput"
-              name="joinRoomInput"
               value={joinRoomName}
               onChange={(e) => setJoinRoomName(e.target.value)}
               placeholder="Room Code"
-              className="joinRoom-Textbox"
+              className={`joinRoom-Textbox ${joinError ? 'border-red-500 shake' : ''}`}
             />
             <input type="submit" className="joinRoom-Button" value="Enter" />
           </form>
