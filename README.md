@@ -1,64 +1,27 @@
-# ShopChat — QR → Ephemeral In‑Store Chat
+Inspiration
 
-**Goal:** Scan a QR, join a temporary chat room for a store/aisle, get help fast — no login/app.
+We wanted to create a social application allowing people to connect with each other, even when one is too introverted to approach a stranger. This application helps keep everyone anonymous, letting user join without any commitment of login, being friends before talking or even worrying about privacy concerns.
 
-## 🏃 Quickstart (hackathon-speed)
-1) Create a Firebase project → enable **Firestore** & **Authentication (Anonymous)**.
-2) Copy **.env.local** from example and fill your Firebase web config:
-   ```bash
-   cp .env.local.example .env.local
-   ```
-3) Install deps and run:
-   ```bash
-   npm i
-   npm run dev
-   ```
-   Open http://localhost:3000
+What it does
 
-4) Create a room from **/dashboard** (e.g., id `demo-aisle7`) and then generate a QR:
-   ```bash
-   QR_BASE_URL=http://localhost:3000 npm run qr -- --room demo-aisle7
-   ```
+This is the first ever in-person social network in a large social gatherings, allowing host to create rooms, where users can join by a room code. All users stay anonymous and are free to try to meet up in a section of the social gathering after connecting with each other in the chat room. Apart from the regular networking with people around users, we have Mr. Monopoly, a real time AI assistant implemented using Gemini that can summarize the whole chats into a single paragraph, letting anyone join at any time without missing any key information. Mr. Monopoly also will be able to answer questions as directly after user calls it the command "\Mr. Monopoly". The AI assistant will always be in the room answering real time questions based on the context from the chats by all users in the room. Mr. Monopoly will ensure the interactivity of the room at any given time.
 
-5) (Optional) Deploy Cloud Functions and seed the demo catalog:
-   ```bash
-   cd functions && npm i && cd ..
-   # Deploy (requires Firebase CLI login): npm run functions:deploy
-   # Or seed catalog locally (needs admin creds):
-   node scripts/seed_catalog.js
-   ```
+How we built it
 
-## 🔐 Firestore Rules
-Minimal demo rules are in **firestore.rules**. For production, tighten writes and staff roles.
+We have revolutionized the idea of creating a social platform for people in a social setting where networking is hardly possible. In a large social gatherings, where people rarely know each other and end up not networking or socializing at all, having a dedicated platform to connect anonymously and connecting based on the close proximity solves the core issue we face everyday in our life in social situations. Powered by Vercel, with the domain name coming from godaddy domains. The application primarily focuses on react with an implementation of firebase as the database and api calls to gemini.
 
-## 🧠 Features in this scaffold
-- Anonymous auth + random handles
-- Realtime chat (Firestore)
-- Staff broadcast + pinned message
-- Basic moderation (Cloud Function + bad-words)
-- Simple product-finder bot using a local catalog
-- Room TTL + scheduled cleanup
-- QR generation script
+Challenges we ran into
 
-## 📱 Demo Script (2–3 min)
-1. **Hook:** “Help is one QR away.”
-2. **Scan QR** → `/join?room=demo-aisle7` → instant entry.
-3. Ask: *“Where’s the 27" IPS?”* → HelperBot replies with aisle/shelf.
-4. Second device posts a tip: “$199 last week.”
-5. **Staff broadcast** from `/dashboard`: pinned coupon banner.
-6. Show **room counter** growing on dashboard.
-7. **Explain safety:** slur → message is struck and user auto-muted after 3 strikes.
-8. **Close:** ephemeral rooms auto-expire → relevant, private, lightweight.
+A challenge we ran into was setting up real time messages through firebase while keeping all users anonymous. We had to ensure rooms were not being duplicated and users were being redirected to the correct rooms. Along with that we had issues where the UI was inconsistent when swapping between pages
 
-## 📦 Folder Map
-- `app/` Next.js routes (Home, Join, Room, Dashboard)
-- `components/` Chat UI
-- `lib/firebase.js` Client init & auth
-- `functions/` Cloud Functions (moderation, bot, cleanup, analytics)
-- `catalog/` Sample catalog JSON
-- `scripts/` QR generation + catalog seeding
-- `firestore.rules` Security rules
+Accomplishments that we're proud of
 
----
-**Stretch ideas:** translation toggle, presence/typing, staff verification, richer analytics.
-# UBHackathon25
+Despite facing many technical challenges we were able to come up with a working prototype that allows users to connect in real time and create connections
+
+What we learned
+
+Not only were we able to gain various technical skills such as react, firebase, and gemini api calls. We were able to build a wonderful friendship through the 24 hours
+
+What's next for Ice breaker
+
+Although users can use any device right away to connect as of now. we would love to improve ice breaker continue to grow into a fully mobile application, where it would be more accessible to everyone. We do plan to implement some core feature for next version including but not limited to customized room expiration after an indicated time, banning foul player and taking more strict action to maintain the harmony while networking.
