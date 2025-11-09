@@ -148,9 +148,6 @@ export default function RoomPage() {
 
 
 
-
-      <div className="disclaimer">By chatting, you agree to be nice. Spam & slurs auto-muted.</div>
-
     
     </main>
   );
