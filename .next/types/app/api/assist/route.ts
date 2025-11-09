@@ -1,4 +1,4 @@
-// File: /Users/animeshsaha/UB hacking/shopchat_scaffold/app/api/assist/route.js
+// File: C:\hackathon\UBHackathon25\app\api\assist\route.js
 import * as entry from '../../../../../app/api/assist/route.js'
 import type { NextRequest } from 'next/server.js'
 

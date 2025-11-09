@@ -5,6 +5,14 @@ import { ensureAnonAuth, db, serverTimestamp, auth } from "@/lib/firebase";
 import { collection, doc, onSnapshot, orderBy, query, addDoc, getDoc } from "firebase/firestore";
 import Message from "@/components/Message";
 import ChatInput from "@/components/ChatInput";
+import './chatRoom.css';
+
+
+
+
+
+
+
 
 export default function RoomPage() {
   const { id } = useParams();
@@ -100,22 +108,32 @@ export default function RoomPage() {
     }
   }
 
+
+
+
+
+
   return (
-    <main className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">{roomMeta?.title || `Room ${id}`}</h1>
-        <div className="flex items-center gap-2 text-xs text-gray-400">
+    <main>
+      
+
+      <div>
+        <h1 className="roomTitle">{roomMeta?.title || `Room ${id}`}</h1>
+        
+
+
+        
+        <div className="ai-button">
           <button
             onClick={summarizeRoom}
             disabled={summarizing}
-            className="px-3 py-1 rounded bg-slate-800 text-white text-xs disabled:opacity-60"
           >
-            {summarizing ? "Summarizing..." : "Summarize now"}
+            {summarizing ? "Summarizing..." : "Summarize Now"}
           </button>
-          <span>Ephemeral • No signup</span>
         </div>
       </div>
-      <div className="card p-3 h-[60vh] overflow-y-auto">
+
+      <div className="text-chat-box">
         {messages.map(m => (
           <Message
             key={m.id}
@@ -126,14 +144,21 @@ export default function RoomPage() {
         ))}
         <div ref={bottomRef} />
       </div>
+
       <ChatInput onSend={send} />
       {summary && (
-        <div className="card p-3 bg-slate-900/70">
-          <p className="text-sm font-semibold">Summary</p>
-          <p className="text-sm text-gray-200 whitespace-pre-line mt-1">{summary}</p>
+        <div className="ai-card">
+          <p className="ai-summary-header">Summary</p>
+          <p className="ai-data">{summary}</p>
         </div>
       )}
-      <div className="text-xs text-gray-400">By chatting, you agree to be nice. Spam & slurs auto-muted.</div>
+
+
+
+
+      <div className="disclaimer">By chatting, you agree to be nice. Spam & slurs auto-muted.</div>
+
+    
     </main>
   );
 }
