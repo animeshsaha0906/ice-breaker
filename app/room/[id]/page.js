@@ -19,7 +19,15 @@ export default function RoomPage() {
   const [summary, setSummary] = useState("");
   const [summarizing, setSummarizing] = useState(false);
   const [aiStatus, setAiStatus] = useState("");
+  const [aiQuestion, setAiQuestion] = useState("");
+  const [asking, setAsking] = useState(false);
+  const [generalQuestion, setGeneralQuestion] = useState("");
+  const [generalAnswer, setGeneralAnswer] = useState("");
+  const [generalLoading, setGeneralLoading] = useState(false);
+  const [generalError, setGeneralError] = useState("");
   const bottomRef = useRef(null);
+
+  const cleanResponse = (text = "") => text.replace(/\*\*/g, "").trim();
 
   useEffect(() => {
     (async () => {
@@ -111,7 +119,7 @@ export default function RoomPage() {
         throw new Error(errMsg);
       }
       const data = await res.json();
-      setSummary(data.text);
+      setSummary(cleanResponse(data.text));
     } catch (err) {
       setSummary(err.message);
     } finally {
@@ -121,6 +129,7 @@ export default function RoomPage() {
 
   async function handleAsk(question) {
     try {
+      setAsking(true);
       setAiStatus("Mr. Monopoly is thinking…");
       const res = await fetch("/api/assist", {
         method: "POST",
@@ -136,7 +145,7 @@ export default function RoomPage() {
         throw new Error(errMsg);
       }
       const data = await res.json();
-      const answer = data.text || "No response.";
+      const answer = cleanResponse(data.text || "No response.");
       await addDoc(collection(db, "rooms", id, "messages"), {
         uid: "mr-monopoly",
         handle: "Mr. Monopoly",
@@ -147,41 +156,144 @@ export default function RoomPage() {
       setAiStatus("");
     } catch (err) {
       setAiStatus(err.message);
+    } finally {
+      setAsking(false);
+    }
+  }
+
+  async function askGeneral(question) {
+    try {
+      setGeneralError("");
+      setGeneralLoading(true);
+      setGeneralAnswer("");
+      const res = await fetch("/api/assist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode: "general", question })
+      });
+      if (!res.ok) {
+        let errMsg = "Failed to get an answer.";
+        try {
+          const errBody = await res.json();
+          errMsg = errBody.details || errBody.error || errMsg;
+        } catch (_) {}
+        throw new Error(errMsg);
+      }
+      const data = await res.json();
+      setGeneralAnswer(cleanResponse(data.text || "I'm not sure yet."));
+    } catch (err) {
+      setGeneralError(err.message);
+    } finally {
+      setGeneralLoading(false);
     }
   }
 
   return (
-    <main>
-      <div>
-        <h1 className="roomTitle">{roomMeta?.title || `Room ${id}`}</h1>
-        <div className="ai-button">
-          <button onClick={summarizeRoom} disabled={summarizing}>
-            {summarizing ? "Summarizing..." : "Summarize Now"}
-          </button>
+    <main className="room-root">
+      <header className="room-header">
+        <div>
+          <p className="room-title">{roomMeta?.title || `Room ${id}`}</p>
+          <p className="room-code">Code: {id}</p>
         </div>
-      </div>
+      </header>
 
-      <div className="text-chat-box">
-        {messages.map((m) => (
-          <Message
-            key={m.id}
-            m={m}
-            self={user}
-            displayHandle={handleMap[m.uid] || m.handle}
+      <section className="room-layout">
+        <div className="chat-panel">
+          <div className="text-chat-box">
+            {messages.map((m) => (
+              <Message
+                key={m.id}
+                m={m}
+                self={user}
+                displayHandle={handleMap[m.uid] || m.handle}
+              />
+            ))}
+            <div ref={bottomRef} />
+          </div>
+          <ChatInput
+            onSend={send}
+            extraAction={
+              <button
+                type="button"
+                className="form-button secondary"
+                onClick={summarizeRoom}
+                disabled={summarizing}
+              >
+                {summarizing ? "Summarizing..." : "Summarize Mr. Monopoly"}
+              </button>
+            }
           />
-        ))}
-        <div ref={bottomRef} />
-      </div>
-
-      <ChatInput onSend={send} />
-      {aiStatus && <div className="ai-status">{aiStatus}</div>}
-      {summary && (
-        <div className="ai-card">
-          <p className="ai-summary-header">Summary</p>
-          <p className="ai-data">{summary}</p>
+          {aiStatus && <div className="ai-status">{aiStatus}</div>}
         </div>
-      )}
 
+        <aside className="ai-card" aria-live="polite">
+          <p className="ai-summary-header">Mr. Monopoly</p>
+
+          <div className="ai-section">
+            <p className="ai-section-title">Chat Summary</p>
+            {summarizing && <p className="ai-data">Hold on let me summarize…</p>}
+            {!summarizing && summary && <p className="ai-data">{summary}</p>}
+            {!summarizing && !summary && (
+              <p className="ai-data muted">Trigger a summary to see it here.</p>
+            )}
+          </div>
+
+          <div className="ai-section">
+            <p className="ai-section-title">Chat-aware Q&A</p>
+            <form
+              className="ai-ask-form"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const trimmed = aiQuestion.trim();
+                if (!trimmed) return;
+                await send(`\\ask ${trimmed}`);
+                setAiQuestion("");
+              }}
+            >
+              <input
+                type="text"
+                className="ai-ask-input"
+                placeholder="Ask about this room..."
+                value={aiQuestion}
+                onChange={(e) => setAiQuestion(e.target.value)}
+                disabled={asking}
+              />
+              <button type="submit" className="ai-ask-button" disabled={asking}>
+                {asking ? "Thinking..." : "Ask room"}
+              </button>
+            </form>
+          </div>
+
+          <div className="ai-section">
+            <p className="ai-section-title">Ask Anything</p>
+            <form
+              className="ai-ask-form"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const trimmed = generalQuestion.trim();
+                if (!trimmed) return;
+                await askGeneral(trimmed);
+                setGeneralQuestion("");
+              }}
+            >
+              <input
+                type="text"
+                className="ai-ask-input"
+                placeholder="What's on your mind?"
+                value={generalQuestion}
+                onChange={(e) => setGeneralQuestion(e.target.value)}
+                disabled={generalLoading}
+              />
+              <button type="submit" className="ai-ask-button dark" disabled={generalLoading}>
+                {generalLoading ? "Thinking..." : "Ask anything"}
+              </button>
+            </form>
+            {generalLoading && <p className="ai-data">Consulting the archives…</p>}
+            {!generalLoading && generalAnswer && <p className="ai-data">{generalAnswer}</p>}
+            {generalError && <p className="ai-data error">{generalError}</p>}
+          </div>
+        </aside>
+      </section>
     </main>
   );
 }

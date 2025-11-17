@@ -1,130 +1,270 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@font-face {
-    font-family: monopolyFont;
-    src: url(../../assets/MuseoModerno-VariableFont_wght.ttf);
+
+:root {
+  --font-body: var(--font-icebreaker, "MuseoModerno", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif);
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-html, body {
-  background: #cde6d0;
-  color: #000000;
+html,
+body {
   margin: 0;
   padding: 0;
-  background-image: url("/monopolyBoard.png");
-  background-size: 100vh;
+  min-height: 100%;
+  background-color: #cde6d0;
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.85), rgba(205, 230, 208, 0.65) 65%),
+    url("/monopolyBoard.png");
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position-x: 25%;
-
-
-  
+  background-position: center;
+  color: #0f172a;
+  font-family: var(--font-body);
 }
 
-.main{
-    width: 100%;
-    height: 100%;
+.room-root {
+  min-height: 100vh;
+  padding: 2rem clamp(1rem, 4vw, 3rem) 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.roomTitle{
-    color: black;
-    height: 100%;
-    width: 75%;
-    min-width: 800px;
-    text-align: center;
-    padding-top: 15vh;
-    font-family: monopolyFont;
-    font-size: 2em;
-
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.ai-button{
-    color: white;
-    background-color: red;
-    height: 0%;
-    width: auto;
-    text-align: center;
-    font-family: monopolyFont;
-    border-radius: 5px;
-    font-size: 1.5em;
-    border: 1px solid black;
-    float: right;
-    margin-right: 10%;
-    padding: 20px;
-    cursor: pointer;
+.room-title {
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.04em;
+}
 
+.room-code {
+  margin: 0.25rem 0 0;
+  color: #475569;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ai-button {
+  border: 2px solid #0f172a;
+  border-radius: 9999px;
+  padding: 0.85rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: #ff5959;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #0f172a;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.ai-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.ai-button:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 #0f172a;
+}
+
+.room-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.chat-panel {
+  background: rgba(255, 255, 255, 0.65);
+  border: 2px solid #0f172a;
+  border-radius: 24px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 25px 45px rgba(15, 23, 42, 0.2);
+}
+
+.text-chat-box {
+  background-color: #f8fbff;
+  border: 2px solid #0f172a;
+  border-radius: 18px;
+  height: 380px;
+  padding: 1rem;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.ai-status {
+  font-size: 0.9rem;
+  color: #7c3aed;
+  text-align: center;
+  font-weight: 600;
 }
 
 .ai-card {
-    background-color: #E4FFF8;
-    border: 2px solid black;
-    border-radius: 5px;
-    max-width: 20%;
-    padding: 20px;
-    position: fixed;  
-    top: 32vh;      
-    right: 10vw;     
-    height: auto; 
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid #0f172a;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 35px rgba(15, 23, 42, 0.15);
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 2rem;
 }
 
-@media (max-width: 1000px) {
-    .ai-card {
-        background-color: #E4FFF8;
-        border: 2px solid black;
-        border-radius: 5px;
-        max-width: 30%;
-        padding: 20px;
-        position: fixed;  
-        top: 32vh;      
-        right: 10vw;     
-        height: auto;  
-    }
+.ai-summary-header {
+  margin: 0;
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
 }
 
+.ai-section {
+  border-top: 1px dashed rgba(15, 23, 42, 0.25);
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 
+.ai-section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
 
-.ai-summary-header{
-    color: black;
-    font-family: monopolyFont;
+.ai-section-title {
+  margin: 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0f172a;
+}
+
+.ai-ask-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ai-ask-input {
+  border: 2px solid #0f172a;
+  border-radius: 16px;
+  padding: 0.85rem 1rem;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.ai-ask-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+.ai-ask-button {
+  border: 2px solid #0f172a;
+  border-radius: 9999px;
+  padding: 0.7rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #0f172a;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.ai-ask-button.dark {
+  background: #111827;
+}
+
+.ai-ask-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ai-ask-button:not(:disabled):hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 #0f172a;
+}
+
+.ai-data {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #0f172a;
+}
+
+.ai-data.muted {
+  color: #64748b;
+  text-align: center;
+}
+
+.ai-data.error {
+  color: #dc2626;
+}
+
+@media (max-width: 1024px) {
+  .room-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ai-card {
+    position: static;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .room-root {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .chat-panel,
+  .ai-card {
+    padding: 1.25rem;
+  }
+
+  .text-chat-box {
+    height: 320px;
+  }
+
+  .ai-button {
+    width: 100%;
     text-align: center;
-    font-size: 2em;
-    text-decoration: underline;
+  }
+
+  .room-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ai-ask-form {
+    flex-direction: column;
+  }
 }
-
-.ai-data{
-    color: black;
-    font-family: monopolyFont;
-    text-align: center;
-    font-size: 1.2em;
-}
-
-
-
-
-
-
-.text-chat-box{
-    background-color: #E4FFF8;
-    height: 28em;
-    max-height: 1000px;
-    width: 38%;
-    overflow-x: hidden;
-    overflow-y: auto; 
-    scrollbar-color: red;
-    scrollbar-width: thin;
-    margin-left: 20%;
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 15px;
-
-}
-
-
-.disclaimer{
-    color: Red;
-    font-family: monopolyFont;
-    margin-left: 20%;
-    width: 35em;
-    text-align: center;
-}
-

@@ -15,8 +15,11 @@ const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 function buildPrompt(mode, history, question) {
+  if (mode === "general" && question) {
+    return `You are Mr. Monopoly, an energetic social host who can answer any question with wit and accuracy. Use your general knowledge and reasoning to respond in at most three crisp sentences (under 80 words total). Avoid markdown.\n\nQuestion: ${question}\nAnswer:`;
+  }
   if (mode === "qa" && question) {
-    return `You are Mr. Monopoly, a social media ai assistant. Use ONLY the conversation below to answer the question at the end. Always refer to people by their @handle exactly as shown.\n\nConversation:\n${history}\n\nQuestion: ${question}\nAnswer:`;
+    return `You are Mr. Monopoly, a social media AI assistant. Use ONLY the conversation below to answer the question at the end. Always refer to people by their @handle exactly as shown. Reply in two short sentences (under 60 words) and avoid markdown.\n\nConversation:\n${history}\n\nQuestion: ${question}\nAnswer:`;
   }
   return `You are Mr. Monopoly, a social media ai assistant. Summarize the following conversation into 3 concise bullet points. Quote each participant by their @handle exactly as shown.\n\nConversation:\n${history}\n\nSummary:`;
 }
@@ -28,53 +31,57 @@ export async function POST(req) {
   try {
     const body = await req.json();
     const { roomId, mode = "summary", question = "" } = body || {};
-    if (!roomId) {
+    const isGeneral = mode === "general";
+    if (!isGeneral && !roomId) {
       return NextResponse.json({ error: "roomId is required" }, { status: 400 });
     }
-    if (mode === "qa" && !question) {
-      return NextResponse.json({ error: "question is required for qa mode" }, { status: 400 });
+    if ((mode === "qa" || mode === "general") && !question) {
+      return NextResponse.json({ error: "question is required for this mode" }, { status: 400 });
     }
     if (!process.env.GEMINI_API_KEY) {
       return NextResponse.json({ error: "GEMINI_API_KEY not configured" }, { status: 500 });
     }
 
-    const messagesSnap = await getDocs(
-      query(
-        collection(db, "rooms", roomId, "messages"),
-        orderBy("createdAt", "desc"),
-        limit(40)
-      )
-    );
+    let history = "";
+    if (!isGeneral) {
+      const messagesSnap = await getDocs(
+        query(
+          collection(db, "rooms", roomId, "messages"),
+          orderBy("createdAt", "desc"),
+          limit(40)
+        )
+      );
 
-    const messages = messagesSnap.docs.map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
+      const messages = messagesSnap.docs.map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
 
-    const missingHandleUids = [
-      ...new Set(
-        messages
-          .filter((msg) => !msg.handle && typeof msg.uid === "string")
-          .map((msg) => msg.uid)
-      )
-    ];
+      const missingHandleUids = [
+        ...new Set(
+          messages
+            .filter((msg) => !msg.handle && typeof msg.uid === "string")
+            .map((msg) => msg.uid)
+        )
+      ];
 
-    const handleMap = {};
-    await Promise.all(
-      missingHandleUids.map(async (uid) => {
-        const userSnap = await getDoc(doc(db, "users", uid));
-        if (userSnap.exists()) {
-          const data = userSnap.data();
-          if (data?.handle) handleMap[uid] = data.handle;
-        }
-      })
-    );
+      const handleMap = {};
+      await Promise.all(
+        missingHandleUids.map(async (uid) => {
+          const userSnap = await getDoc(doc(db, "users", uid));
+          if (userSnap.exists()) {
+            const data = userSnap.data();
+            if (data?.handle) handleMap[uid] = data.handle;
+          }
+        })
+      );
 
-    const history = messages
-      .filter((msg) => typeof msg?.text === "string" && msg.text.trim().length)
-      .reverse()
-      .map((msg) => `${msg.handle || handleMap[msg.uid] || msg.uid || "guest"}: ${msg.text}`)
-      .join("\n");
+      history = messages
+        .filter((msg) => typeof msg?.text === "string" && msg.text.trim().length)
+        .reverse()
+        .map((msg) => `${msg.handle || handleMap[msg.uid] || msg.uid || "guest"}: ${msg.text}`)
+        .join("\n");
 
-    if (!history) {
-      return NextResponse.json({ error: "No conversation found." }, { status: 404 });
+      if (!history) {
+        return NextResponse.json({ error: "No conversation found." }, { status: 404 });
+      }
     }
 
     const prompt = buildPrompt(mode, history, question);

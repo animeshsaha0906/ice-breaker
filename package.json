@@ -12,12 +12,13 @@
   },
   "dependencies": {
     "firebase": "^10.12.0",
+    "minimist": "^1.2.8",
     "next": "14.2.4",
+    "qrcode": "^1.5.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "qrcode": "^1.5.3",
-    "swr": "^2.2.5",
-    "minimist": "^1.2.8"
+    "start": "^5.1.0",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.15",
